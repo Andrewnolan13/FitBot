@@ -3,6 +3,7 @@ import signal
 from .browser import EdgeLauncherThread
 from .export import FitbitDataDaemon
 from .dash_app import app
+from .utils import kill_python_processes
 
 def main():
     def signal_handler(sig, frame):
@@ -14,9 +15,7 @@ def main():
             print(f"Error while shutting down the server: {e}")
         finally:
             print("Exiting...")
-            import os
-            cmd = "taskkill /IM python.exe /F"
-            os.system(cmd)
+            kill_python_processes()
         exit(0)
 
     # Attach the signal handler for graceful shutdown
