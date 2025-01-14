@@ -1,6 +1,7 @@
 import time
 import threading
 import datetime as dt
+from requests.exceptions import ConnectionError
 
 from .constants import REFRESH_TIME, DAEMON_SLEEP
 from .utils import sleep
@@ -23,6 +24,9 @@ class FitbitTokenDaemon(threading.Thread):
                 if self.fitbitServer.client.session.token['expires_at'] - self.refresh_time * (1 - self.percentage) < time.time():
                     report += "\n\t\tFitbitTokenDaemon 'Refreshing Token'"
                     self.fitbitServer.client.refresh_token()
+            except ConnectionError:
+                report += "FitbitTokenDaemon encountered a ConnectionError."
+                self.fitbitServer.__authenticate()
             except Exception as e:
                 report += f"FitbitTokenDaemon encountered an error: {e}"
             finally:
