@@ -25,7 +25,6 @@ def getStepsChart(df: pd.DataFrame) -> go.Figure:
                               uirevision = 'None',
                               xaxis=dict(
                                             range=[FIG_START_DATE, df.Date.max()],  # Default visible range
-                                            rangeslider=dict(visible=True),  # Enable range slider for zooming
                                             showgrid = False
                                         ),                                      
                         )
@@ -175,7 +174,6 @@ def getBodyWeightChart(df:pd.DataFrame)->go.Figure:
             uirevision = 'None',
             xaxis=dict(
                         range=[FIG_START_DATE, maxDate],  # Default visible range
-                        rangeslider=dict(visible=True),  # Enable range slider for zooming
                         showgrid = False
                     ),
         )
