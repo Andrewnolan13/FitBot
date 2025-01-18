@@ -7,7 +7,7 @@ import datetime as dt
 pd.options.plotting.backend = "plotly"
 sys.path.append('../src')
 
-from .constants import GOALS_PATH, KG_TO_LBS, CALORIES_PER_LB
+from .constants import GOALS_PATH, KG_TO_LBS, CALORIES_PER_LB, FIG_START_DATE
 from .utils import LinearRegression
 
 GOALS = pd.read_excel(GOALS_PATH,sheet_name='Weight Goal',usecols='D:G')
@@ -17,13 +17,17 @@ def getStepsChart(df: pd.DataFrame) -> go.Figure:
    return  (df.plot(x='Date', y = 'steps', kind = 'bar')
                .add_hline(y = 10_000, line_dash = 'dash', line_color = 'red')
                .update_layout(
-                              xaxis = dict(showgrid = False),
-                              xaxis2 = dict(showgrid = False),
                               yaxis = dict(showgrid = False, showticklabels = True, title = '', zeroline = False),
                               yaxis2 = dict(showgrid = False, showticklabels = True, title = '', zeroline = False),
                               showlegend = False,
                               title = 'Step count over time',
                               title_x = 0.5,
+                              uirevision = 'None',
+                              xaxis=dict(
+                                            range=[FIG_START_DATE, df.Date.max()],  # Default visible range
+                                            rangeslider=dict(visible=True),  # Enable range slider for zooming
+                                            showgrid = False
+                                        ),                                      
                         )
                   .update_yaxes(matches=None)
                   .update_annotations(text = ''))
@@ -84,13 +88,16 @@ def getNutritionChart(df: pd.DataFrame) -> go.Figure:
                         xaxis_showgrid=False,
                         yaxis_showgrid=False,
                         yaxis2_showgrid=False,
-                        xaxis = dict(showgrid = False),
-                        xaxis2 = dict(showgrid = False),
                         yaxis = dict(showgrid = False, showticklabels = True, title = '', zeroline = False),
                         yaxis2 = dict(showgrid = False, showticklabels = True, title = '', zeroline = False),
                         showlegend = False,
                         title = 'Macros and Calories over Time',
                         title_x = 0.5,
+                        uirevision = 'None',
+                        xaxis=dict(
+                                    range=[FIG_START_DATE, df.Date.max()],  # Default visible range
+                                    showgrid = False
+                                ),
         )
 
 def make_tangent_line(actualVgoal:pd.DataFrame,lookback: int)-> pd.DataFrame:
@@ -135,9 +142,9 @@ def make_trend_line(df:pd.DataFrame,window: int)-> pd.DataFrame:
                     .melt(id_vars='Date', var_name='Type', value_name='Weight'))
 
 
-def getBodyWeightChart(df:pd.DataFrame):
+def getBodyWeightChart(df:pd.DataFrame)->go.Figure:
     actualVgoal = df['Date weight'.split()].merge(GOALS, on='Date', how = 'outer',suffixes=('_actual', '_goal'))
-
+    maxDate = max(actualVgoal.Date.max(),dt.datetime.today(),df.Date.max())
     fig = (
     actualVgoal['Date weight_actual weight_goal'.split()]
         .melt(id_vars='Date', var_name='Type', value_name='Weight')
@@ -160,13 +167,17 @@ def getBodyWeightChart(df:pd.DataFrame):
         .add_hline(y = 500, line_dash = 'dash', line_color = 'red', row = 1,opacity = 0.25)
         .add_hline(y = 1000, line_dash = 'dash', line_color = 'red', row = 1,opacity = 0.5)
         .update_layout(
-            xaxis = dict(showgrid = False),
-            xaxis2 = dict(showgrid = False),
             yaxis = dict(showgrid = False, showticklabels = True, title = '', zeroline = False),
             yaxis2 = dict(showgrid = False, showticklabels = True, title = '', zeroline = False),
             showlegend = False,
             title = 'Weight and Goals over Time',
             title_x = 0.5,
+            uirevision = 'None',
+            xaxis=dict(
+                        range=[FIG_START_DATE, maxDate],  # Default visible range
+                        rangeslider=dict(visible=True),  # Enable range slider for zooming
+                        showgrid = False
+                    ),
         )
         .update_yaxes(matches=None)
         .update_annotations(text = ''))

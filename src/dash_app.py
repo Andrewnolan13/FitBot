@@ -111,17 +111,21 @@ app.layout = html.Div([
 
 # Define the callback to update the graphs
 @app.callback(
-    [dash.dependencies.Output('graph1', 'figure'),
-     dash.dependencies.Output('graph2', 'figure'),
-     dash.dependencies.Output('graph3', 'figure'),
-     dash.dependencies.Output('title', 'children'),
-     dash.dependencies.Output('today-bw', 'children'),
-     dash.dependencies.Output('today-goal', 'children'),
-     dash.dependencies.Output('energy-balance-7', 'children'),
-     dash.dependencies.Output('energy-balance-14', 'children'),
-     dash.dependencies.Output('energy-balance-21', 'children'),
-     dash.dependencies.Output('energy-balance-28', 'children')],
-    [dash.dependencies.Input('interval-component', 'n_intervals')]
+    [
+        dash.dependencies.Output('graph1', 'figure'),
+        dash.dependencies.Output('graph2', 'figure'),
+        dash.dependencies.Output('graph3', 'figure'),
+        dash.dependencies.Output('title', 'children'),
+        dash.dependencies.Output('today-bw', 'children'),
+        dash.dependencies.Output('today-goal', 'children'),
+        dash.dependencies.Output('energy-balance-7', 'children'),
+        dash.dependencies.Output('energy-balance-14', 'children'),
+        dash.dependencies.Output('energy-balance-21', 'children'),
+        dash.dependencies.Output('energy-balance-28', 'children'),
+    ],
+    [
+        dash.dependencies.Input('interval-component', 'n_intervals'),
+    ],
 )
 def update_graphs(n):
     '''
@@ -153,8 +157,8 @@ def update_graphs(n):
             f"{energyBalance7} kcal",
             f"{energyBalance14} kcal",
             f"{energyBalance21} kcal",
-            f"{energyBalance28} kcal")
-
+            f"{energyBalance28} kcal",
+            )
 
 
 __all__ = ['app']

@@ -30,6 +30,7 @@ class FitbitDataDaemon(threading.Thread):
         self.fs = FitbitServer()
         self.requestsRemaining = RATE_LIMIT
         self._stop_event = threading.Event()
+        self.firstCall = True
     
     def stop(self):
         # self.conn.close()
@@ -57,9 +58,10 @@ class FitbitDataDaemon(threading.Thread):
         self.conn.commit()
         
     def getData(self)->pd.DataFrame:
-        steps:list[dict] = self.fs.activity_time_series(period=DAYS_TO_UPDATE) # dict(dateTime, value)
-        weight:list[dict] = self.fs.body_time_series(period=DAYS_TO_UPDATE) # dict(dateTime, value)
-        macros:list[dict] = self.fs.macros_time_series(period=DAYS_TO_UPDATE) # dict(dateTime, calories, carbs, fat, fiber, protein, sodium)
+        days = DAYS_TO_UPDATE if self.firstCall else 1
+        steps:list[dict] = self.fs.activity_time_series(period=days) # dict(dateTime, value)
+        weight:list[dict] = self.fs.body_time_series(period=days) # dict(dateTime, value)
+        macros:list[dict] = self.fs.macros_time_series(period=days) # dict(dateTime, calories, carbs, fat, fiber, protein, sodium)
 
         df = pd.DataFrame(steps)
         df = pd.merge(df,pd.DataFrame(weight),on='dateTime',how='outer',suffixes=('_steps','_weight'), indicator=True).pipe(raise_or_return,len(steps),len(weight))
