@@ -14,7 +14,7 @@ GOALS_PATH = os.path.join(ASSETS_DIR,'Goals.xlsx')
 REFRESH_TIME = 8*60*60 # 8 hours
 DAEMON_SLEEP = 60 # 1 minute
 RATE_LIMIT = 150 # 150 requests per HOUR
-DAYS_TO_UPDATE = 7
+DAYS_TO_UPDATE = 2
 NUM_REQUESTS_PER_UPDATE = 2 + DAYS_TO_UPDATE # STEPS + BODYWEIGHT + MACROS (Macros doesn't have a time series request) 
 SLEEP_TIME = int(3600 / (RATE_LIMIT/NUM_REQUESTS_PER_UPDATE))+1
 

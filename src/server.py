@@ -233,14 +233,14 @@ class FitbitServer(Fitbit):
             with open(TOKEN_PATH, 'rb') as f:
                 token = pickle.load(f)
             if token['expires_at'] < time.time():
-                token = self.__authenticate()
+                token = self._authenticate()
         except FileNotFoundError:
-            token = self.__authenticate()
+            token = self._authenticate()
         except:
             raise
         return token
 
-    def __authenticate(self)->dict:
+    def _authenticate(self)->dict:
         server = gather_keys_oauth2.OAuth2Server(self.client_id, self.client_secret)
         server.browser_authorize()
         token = server.fitbit.client.session.token

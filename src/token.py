@@ -26,7 +26,7 @@ class FitbitTokenDaemon(threading.Thread):
                     self.fitbitServer.client.refresh_token()
             except ConnectionError:
                 report += "FitbitTokenDaemon encountered a ConnectionError."
-                self.fitbitServer.__authenticate()
+                self.fitbitServer._authenticate()
             except Exception as e:
                 report += f"FitbitTokenDaemon encountered an error: {e}"
             finally:
@@ -36,4 +36,4 @@ class FitbitTokenDaemon(threading.Thread):
     def stop(self):
         self._stop_event.set()
         self.join()
-        print("FitbitTokenDaemon stopped.")
+        print("FitbitTokenDaemon stopped.") # type: ignore
