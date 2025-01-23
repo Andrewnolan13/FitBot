@@ -1,4 +1,5 @@
 import sqlite3
+# from sqlite3.dbapi2 import ConnectionAbortedError
 import datetime as dt
 import pandas as pd
 import threading
@@ -59,6 +60,7 @@ class FitbitDataDaemon(threading.Thread):
         
     def getData(self)->pd.DataFrame:
         days = DAYS_TO_UPDATE if self.firstCall else 1
+        self.firstCall = False
         steps:list[dict] = self.fs.activity_time_series(period=days) # dict(dateTime, value)
         weight:list[dict] = self.fs.body_time_series(period=days) # dict(dateTime, value)
         macros:list[dict] = self.fs.macros_time_series(period=days) # dict(dateTime, calories, carbs, fat, fiber, protein, sodium)
@@ -138,7 +140,15 @@ class FitbitDataDaemon(threading.Thread):
                 # sleep until one minute past the hour as the reset time is not exactly on the hour.
                 # This prevents the script from hitting the rate limit again at the top of the hour
                 # and then sleeping for another hour.
-                sleepTime = (topOfHour-now).total_seconds()+60 
+                sleepTime = (topOfHour-now).total_seconds()+60
+            except sqlite3.Error as e:
+                if "Remote end closed connection without response" in str(e):
+                    report += "Connection aborted: Remote end closed the connection.\n\t\t"
+                    self.conn.close()
+                    self.__connect()
+                    report += self.updateDatabase() + f"Requests remaining: {self.requestsRemaining}. "
+                else:
+                    print(f"SQLite error occurred: {e}")             
             except KeyboardInterrupt:
                 report += "FitbitDataDaemon was interrupted. "
                 sleepTime = 0
