@@ -169,7 +169,7 @@ def getBodyWeightChart(df:pd.DataFrame)->go.Figure:
         .update_layout(
             yaxis = dict(showgrid = False, showticklabels = True, title = '', zeroline = False),
             yaxis2 = dict(showgrid = False, showticklabels = True, title = '', zeroline = False),
-            showlegend = False,
+            showlegend = True,
             title = 'Weight and Goals over Time',
             title_x = 0.5,
             uirevision = 'None',
