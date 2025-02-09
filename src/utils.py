@@ -16,8 +16,12 @@ class LinearRegression:
         self.y = y
 
     def fit(self) -> None:
-        self.beta = np.linalg.inv(self.X.T @ self.X) @ self.X.T @ self.y
-
+        try:
+            self.beta = np.linalg.inv(self.X.T @ self.X) @ self.X.T @ self.y
+        except np.linalg.LinAlgError:
+            print("Matrix is singular. Pseudo-inverse used instead.")
+            self.beta = np.linalg.pinv(self.X) @ self.y
+        
     def predict(self, X: np.ndarray) -> np.ndarray:
         # Add intercept (bias) term to input for predictions
         X = np.hstack((np.ones((X.shape[0], 1)), X))
