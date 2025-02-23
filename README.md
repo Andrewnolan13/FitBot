@@ -20,7 +20,7 @@ it looks something like this (github won't allow html with js so I had to copy a
 </div>
 
 # What it does
-One thread is set up to request data from the fitbit web api (using [orcasgit](https://github.com/orcasgit/python-fitbit)) every 70 seconds or so. It writes that data to a database in /data. Mean while the dashapp reloads the web page every 10s. On each reload, it requests data from the databse and generates the plots and derives estimates of my caloric balance.
+One thread is set up to request data from the fitbit web api (using [orcasgit](https://github.com/orcasgit/python-fitbit)) every 70 seconds or so. It writes that data to a database in /data. Mean while the dashapp reloads the web page every 10s. On each reload, it requests data from the databse, generates the plots and derives estimates of caloric balance(aka calorie surplus/deficit).
 
 # Why?
 Weight loss can be a pain. It is often very hard to know if you are losing weight at an adequate rate, just by looking at the scales (since it's so volatile). This dashboard makes a rolling linear regression of your bodyweight over 7, 14, 21 and 28 days. The slopes of those lines are in kg per day, [which can be converted into calories.](<https://onefitness.com.au/the-real-facts-about-burning-body-fat/#:~:text=There%20are%207%2C700kcals%20(kcal,time%20to%20burn%20that%20fat.>). For a long-term weight loss phase (>4 weeks) you want to be around the -500kcal/day mark. For short term weight loss phases (<= 4 weeks), you can get away with (-1000kcal) without too many negative effects. 
