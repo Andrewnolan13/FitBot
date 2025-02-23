@@ -3,3 +3,4 @@ assets/token.pkl
 *.db-shm
 *.db-wal
 *.db
+*/__pycache__/*
