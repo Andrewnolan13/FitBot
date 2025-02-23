@@ -29,7 +29,7 @@ This Dashboard allows me to titrate my daily expenditure (ie steps) and my daily
 
 # Usage:
 1. clone this repo
-2. go to [orcasgit](https://github.com/orcasgit/python-fitbit) and follow the steps to get your api keys. Save in the assets folder in 'creds.json' like this
+2. go to [orcasgit](https://github.com/orcasgit/python-fitbit) and follow the steps to get your api keys. Save them in the assets folder in 'creds.json' like this
 ```json
 {
     "CLIENT_ID": "my client id",
@@ -37,4 +37,18 @@ This Dashboard allows me to titrate my daily expenditure (ie steps) and my daily
 }
 ```
 3. update the Goals.xlsx file in the assets folder to set your goals.
-4.  
+4. ensure that you are logging your bodyweight in the fitbit app on your phone.
+5. ensure that you are logging your calories/macros on the fitbit app (or myfitnesspal, but you need to sync the two apps on your phone)
+6. ensure that you are logging your steps in the fitbit app/wearing a fitbit which is synced to the app.
+7. if you want to import more history (as a once off), go to constants.py and edit the DAYS_TO_UPDATE parameter. Beware that the rate limit is 150 requests per hour, so it can't be greater than 147.
+8. install requirements
+```bash
+C:/path/to/where/you/cloned/it> cd FitBot
+C:/path/to/where/you/cloned/it/FitBot> pip install -r requirements.txt
+```
+9. run the app
+```bash
+C:/path/to/where/you/cloned/it> python FitBot -m
+```
+
+edit constants.py to tailor it to your needs.
