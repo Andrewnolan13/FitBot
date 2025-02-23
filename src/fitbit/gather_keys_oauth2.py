@@ -8,9 +8,13 @@ import webbrowser
 
 from urllib.parse import urlparse
 from base64 import b64encode
-from .api import Fitbit
 from oauthlib.oauth2.rfc6749.errors import MismatchingStateError, MissingTokenError
-
+try:
+    from .api import Fitbit
+except ImportError:
+    from api import Fitbit
+except:
+    raise
 
 class OAuth2Server:
     def __init__(self, client_id, client_secret,

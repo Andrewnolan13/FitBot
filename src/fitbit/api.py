@@ -11,10 +11,16 @@ except ImportError:
 
 from requests.auth import HTTPBasicAuth
 from requests_oauthlib import OAuth2Session
-
-from . import exceptions
-from .compliance import fitbit_compliance_fix
-from .utils import curry
+try:
+    from . import exceptions
+    from .compliance import fitbit_compliance_fix
+    from .utils import curry
+except ImportError:
+    import exceptions
+    from compliance import fitbit_compliance_fix
+    from utils import curry
+except:
+    raise
 
 
 class FitbitOauth2Client(object):

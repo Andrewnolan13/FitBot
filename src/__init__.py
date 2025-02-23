@@ -1,5 +1,24 @@
 import sqlite3
-from .constants import DB_PATH
+from .constants import DB_PATH, CREDS_PATH, DIR
+import os
+import json
+
+if not os.path.exists(CREDS_PATH):
+    # raise FileNotFoundError(f"Credentials file not found at {CREDS_PATH}. Please create one. Follow steps in README.md.")
+    input_ = input("Credentials file not found.\nVisit https://dev.fitbit.com/login to create a new app.\nThere you will be given a client_id and client_secret.\nPress Y to continue.")
+    if input_.lower() != "y":
+        exit(0)
+    
+    client_id = input("Enter client_id: ")
+    client_secret = input("Enter client_secret: ")
+    # HERE THE USER AGRESS TO SOME STUFF I THINK
+    os.system(f"python FitBot/src/fitbit/gather_keys_oauth2.py {client_id} {client_secret}")
+    creds = dict(CLIENT_ID=client_id, CLIENT_SECRET=client_secret)
+    with open(CREDS_PATH, "w") as f:
+        f.write(json.dumps(creds))
+    print("Credentials file created successfully. Exiting now. Should work on re-run.")
+    # raise FileNotFoundError(f"Credentials file not found at {CREDS_PATH}. Please create one. Follow steps in README.md.") 
+    exit(0)
 
 conn = sqlite3.connect(DB_PATH)
 cursor = conn.cursor()
