@@ -18,3 +18,23 @@ it looks something like this (github won't allow html with js so I had to copy a
         <img src="assets/steps.png" alt="Description" width="300", style="width: 100%; height: 100%">
     </div>
 </div>
+
+# What it does
+One thread is set up to request data from the fitbit web api (using [orcasgit](https://github.com/orcasgit/python-fitbit)) every 70 seconds or so. It writes that data to a database in /data. Mean while the dashapp reloads the web page every 10s. On each reload, it requests data from the databse and generates the plots and derives estimates of my caloric balance.
+
+# Why?
+Weight loss can be a pain. It is often very hard to know if you are losing weight at an adequate rate, just by looking ath the scales (since it's so volatile). This dashboard takes makes a rolling linear regression of your bodyweight over 7, 14, 21 and 28 days. The slopes of those lines are in kg per day, [which can be converted into calories.](<https://onefitness.com.au/the-real-facts-about-burning-body-fat/#:~:text=There%20are%207%2C700kcals%20(kcal,time%20to%20burn%20that%20fat.>). For a long-term weight loss phase (>4 weeks) you want to be around the -500kcal/day mark. For short term weight loss phases (<= 4 weeks), you can get away with (-1000kcal) without too many negative effects. 
+
+This Dashboard allows me to titrate my daily expenditure (ie steps) and my daily intake (calories) while answering other questions like "My muscles feel very sore, have I been getting enough protein?", "I feel weak in the gym, have I been eating enough carbs?" etc.
+
+# Usage:
+1. clone this repo
+2. go to [orcasgit](https://github.com/orcasgit/python-fitbit) and follow the steps to get your api keys. Save in the assets folder in 'creds.json' like this
+```json
+{
+    "CLIENT_ID": "my client id",
+    "CLIENT_SECRET" : "my secret id"
+}
+```
+3. update the Goals.xlsx file in the assets folder to set your goals.
+4.  
