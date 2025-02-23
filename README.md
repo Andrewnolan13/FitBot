@@ -15,3 +15,64 @@ it looks something like this (github won't allow html with js so I had to copy a
 <!-- ![Alt Text](assets/goals.png) -->
 <!-- ![Alt Text](assets/nutrition.png)
 ![Alt Text](assets/steps.png) -->
+
+# FitBot  
+Dashboard to visualize my fitness goals  
+
+## **Current Stats**  
+<div style="background-color: white; padding: 10px; font-family: sans-serif; color: black;">
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(10px, 1fr)); gap: 1px;">
+
+<div style="border: 1px solid black; padding: 10px; margin: 5px;">
+<h4>Today's Bodyweight</h4>
+<p><strong>78.00 kg</strong></p>
+</div>
+
+<div style="border: 1px solid black; padding: 10px; margin: 5px;">
+<h4>Today's Goal</h4>
+<p><strong>78.51 kg</strong></p>
+</div>
+
+<div style="border: 1px solid black; padding: 10px; margin: 5px;">
+<h4>Energy Balance (7 Days)</h4>
+<p><strong>-743 kcal</strong></p>
+</div>
+
+<div style="border: 1px solid black; padding: 10px; margin: 5px;">
+<h4>Energy Balance (14 Days)</h4>
+<p><strong>-54 kcal</strong></p>
+</div>
+
+<div style="border: 1px solid black; padding: 10px; margin: 5px;">
+<h4>Energy Balance (21 Days)</h4>
+<p><strong>-216 kcal</strong></p>
+</div>
+
+<div style="border: 1px solid black; padding: 10px; margin: 5px;">
+<h4>Energy Balance (28 Days)</h4>
+<p><strong>-219 kcal</strong></p>
+</div>
+
+</div>
+</div>
+
+---
+
+<div style="border: 2px solid black; padding: 10px; margin-bottom: 20px;">
+<img src="assets/goals.png" alt="Goals Overview" style="width: 100%;">
+</div>
+
+<div style="border: 2px solid black; padding: 10px; margin-bottom: 20px;">
+<img src="assets/nutrition.png" alt="Nutrition Breakdown" style="width: 100%;">
+</div>
+
+<div style="border: 2px solid black; padding: 10px; margin-bottom: 20px;">
+<img src="assets/steps.png" alt="Step Count" style="width: 100%;">
+</div>
+
+---
+
+## **Live Version**  
+For the fully interactive dashboard, visit:  
+👉 **[FitBot Live Dashboard](#)** *(Replace with actual link if hosted)*
