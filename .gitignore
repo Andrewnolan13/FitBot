@@ -1,3 +1,5 @@
 assets/creds.json 
 assets/token.pkl 
 data/*
+*.db-shm
+*.db-wal
