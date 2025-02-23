@@ -4,7 +4,7 @@ import os
 import json
 
 if not os.path.exists(CREDS_PATH):
-    input_ = input("Credentials file not found.\nVisit https://dev.fitbit.com/login to create a new app.\nThere you will be given a client_id and client_secret.\nPress Y to continue.")
+    input_ = input("Credentials file not found.\nVisit https://dev.fitbit.com/login to create a new app.\nThere you will be given a client_id and client_secret.\nPress Y to enter the credentials, they will be automatically saved.")
     if input_.lower() != "y":
         exit(0)
     # HERE THE USER ENTERS THE CLIENT_ID AND CLIENT_SECRET
